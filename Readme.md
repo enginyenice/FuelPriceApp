@@ -11,6 +11,7 @@ Displays the available parameters within the application. To use the help comman
 
 <code>dotnet /path/to/FuelPrices.dll -h</code>
 
+![Help Query](images/help.png)
 
 This command will show the available parameters and usage instructions.
 
