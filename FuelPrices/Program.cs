@@ -4,34 +4,43 @@ using FuelPrices;
 
 var opetFuelPrice = new OpetFuelPrice();
 bool isSwitched = false;
-for (int i = 0; i < args.Length; i++)
+try
 {
-    switch (args[i])
+    for (int i = 0; i < args.Length; i++)
     {
-        case "-p":
-            var provinceCodeModels = opetFuelPrice.GetFuelPriceByProvinceCode(Int32.Parse(args[i + 1]));
-            opetFuelPrice.ConsoleWrite(provinceCodeModels);
-            isSwitched = true;
-            break;
-        case "-c":
-            var proviceNameModels = opetFuelPrice.GetFuelPriceByProvinceName(args[i + 1]);
-            opetFuelPrice.ConsoleWrite(proviceNameModels);
-            isSwitched = true;
-            break;
-        case "-h":
-            ShowHelp();
-            isSwitched = true;
+        switch (args[i])
+        {
+            case "-p":
+                var provinceCodeModels = opetFuelPrice.GetFuelPriceByProvinceCode(Int32.Parse(args[i + 1]));
+                opetFuelPrice.ConsoleWrite(provinceCodeModels);
+                isSwitched = true;
+                break;
+            case "-c":
+                var proviceNameModels = opetFuelPrice.GetFuelPriceByProvinceName(args[i + 1]);
+                opetFuelPrice.ConsoleWrite(proviceNameModels);
+                isSwitched = true;
+                break;
+            case "-h":
+                ShowHelp();
+                isSwitched = true;
+                break;
+        }
+
+        if (isSwitched)
             break;
     }
-
-    if (isSwitched)
-        break;
+    
+    if (!isSwitched)
+    {
+        var proviceNameModels = opetFuelPrice.GetAllFuelPrice();
+        opetFuelPrice.ConsoleWrite(proviceNameModels);
+    }
 }
-
-if (!isSwitched)
+catch (Exception e)
 {
-    var proviceNameModels = opetFuelPrice.GetAllFuelPrice();
-    opetFuelPrice.ConsoleWrite(proviceNameModels);
+    Console.WriteLine("Seçim işleminde bir hata oluştu.");
+    ShowHelp();
+    
 }
 
 void ShowHelp()
